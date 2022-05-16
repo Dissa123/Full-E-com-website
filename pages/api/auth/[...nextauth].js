@@ -43,12 +43,14 @@ export default NextAuth({
     jwt:({token,user})=>{
       if(user){
         token.id=user._id
+        token.accessToken=user.accessToken
       }
       return token;
     },
     session:({session,token})=>{
       if(token){
         session.id=token.id;
+        session.authToken=token.accessToken;
       }
       return session
     }
