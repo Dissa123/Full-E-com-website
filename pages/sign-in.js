@@ -10,7 +10,7 @@ export default function SignIn({ csrfToken ,providers }) {
 
     const userSignIn=async (e)=>{
         e.preventDefault( );
-        console.log({email:email,password:password})
+        //console.log({email:email,password:password})
         const options={redirect:false,email,password};
         const result = await signIn("credentials",options)
         //console.log(result)
@@ -51,6 +51,11 @@ export default function SignIn({ csrfToken ,providers }) {
           </button>
         </div>
 })}
+
+  <div className="col-12 text-center">
+  <button className="col-4 btn-success btn justify-content-center text-center my-3" type="" onClick={(e)=>{router.push('/sign-up')}}>Sign up with credentials</button>
+  </div>
+ 
     </>
   )
 }
