@@ -22,7 +22,7 @@ export default function Layer10A() {
   const [data, setData] = useState([]);
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [msg]);
 
   const mapProduct = () => {
     if (data.length > 0) {
@@ -43,7 +43,7 @@ export default function Layer10A() {
   };
 
   const mapAddProduct = () => {
-    return <AddInventory msg={(val)=>setmsg(val)} />;
+    return <AddInventory msg={(val)=>{setmsg(val);}} setInv={(val)=>{setData(val)}} />;
   };
 
   const mapAtt = () => {
