@@ -5,35 +5,35 @@ import React, { useState } from "react";
   const tableRow = () => {
     return (
       <tr className="tbl-bg-white">
-        <td>{product.categoryAbr}</td>
-        <td>{product.stockno}</td>
-        <td>{product.styleNumber}</td>
-        <td>{product.brand}</td>
-        <td>{product.manufacture}</td>
-        <td>{product.tag}</td>
-        <td>{product.storeCode}</td>
-        <td>{product.productName}</td>
-        <td>{product.companyName}</td>
-        <td>{product.companyCode}</td>
-        <td>{product.qty}</td>
-        <td>{product.sku}</td>
-        <td>{product.datebuy}</td>
-        <td>{product.datesold}</td>
-        <td>{product.shortDescription}</td>
-        <td>{product.longDescription}</td>
-        <td>{product.cost}</td>
-        <td>{product.retailPrice}</td>
-        <td>{product.onSale}</td>
-        <td>{product.productImages}</td>
-        <td>{product.prodCertificatePicture}</td>
-        <td>{product.certificateNumber}</td>
-        <td>{product.labCertification}</td>
-        <td>{<button className='btn-sm btn-primary' onClick={()=>{props.showAtt(true,product.attributes);}}>show</button>}</td>
-        <td>{product.shippingLength}</td>
-        <td>{product.shippingWidth}</td>
-        <td>{product.shippingHeight}</td>
-        <td>{product.jewelryType}</td>
-        <td>{product.assetId}</td>
+        <td><div style={{width:'100px'}}>{product.categoryAbr}</div></td>
+        <td><div style={{width:'100px'}}>{product.stockno}</div></td>
+        <td><div style={{width:'100px'}}>{product.styleNumber}</div></td>
+        <td><div style={{width:'100px'}}>{product.brand}</div></td>
+        <td><div style={{width:'100px'}}>{product.manufacture}</div></td>
+        <td><div style={{width:'100px'}}>{product.tag}</div></td>
+        <td><div style={{width:'100px'}}>{product.storeCode}</div></td>
+        <td><div style={{width:'100px'}}>{product.productName}</div></td>
+        <td><div style={{width:'100px'}}>{product.companyName}</div></td>
+        <td><div style={{width:'100px'}}>{product.companyCode}</div></td>
+        <td><div style={{width:'100px'}}>{product.qty}</div></td>
+        <td><div style={{width:'100px'}}>{product.sku}</div></td>
+        <td><div style={{width:'100px'}}>{product.datebuy}</div></td>
+        <td><div style={{width:'100px'}}>{product.datesold}</div></td>
+        <td><div style={{width:'100px'}}>{product.shortDescription}</div></td>
+        <td><div style={{width:'100px'}}>{product.longDescription}</div></td>
+        <td><div style={{width:'100px'}}>{product.cost}</div></td>
+        <td><div style={{width:'100px'}}>{product.retailPrice}</div></td>
+        <td><div style={{width:'100px'}}>{product.onSale}</div></td>
+        <td><div style={{width:'100px'}}>{product.productImages}</div></td>
+        <td><div style={{width:'100px'}}>{product.prodCertificatePicture}</div></td>
+        <td><div style={{width:'100px'}}>{product.certificateNumber}</div></td>
+        <td><div style={{width:'100px'}}>{product.labCertification}</div></td>
+        <td><div style={{width:'100px'}}>{<button style={{width:'100px'}} className='btn btn-primary' onClick={()=>{props.showAtt(true,product.attributes);}}>show</button>}</div></td>
+        <td><div style={{width:'100px'}}>{product.shippingLength}</div></td>
+        <td><div style={{width:'100px'}}>{product.shippingWidth}</div></td>
+        <td><div style={{width:'100px'}}>{product.shippingHeight}</div></td>
+        <td><div style={{width:'100px'}}>{product.jewelryType}</div></td>
+        <td><div style={{width:'100px'}}>{product.assetId}</div></td>
       </tr>
     );
   };

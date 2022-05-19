@@ -4,6 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 import InventoryMap from "../custom/inventoryMap";
+import AddInventory from "../custom/addInventory";
 
 let products = [];
 let filteredProductList = [];
@@ -11,7 +12,9 @@ let filteredProductList = [];
 export default function Layer10A() {
   const { data: session, status } = useSession();
   const [showAtt, setshowAtt] = useState(false);
+  const [addInv, setaddInv] = useState(false);
   const [att, setAtt] = useState("");
+  const [msg, setmsg] = useState("")
   console.log(session);
 
   //console.log(session.user.email);
@@ -39,6 +42,10 @@ export default function Layer10A() {
     return null;
   };
 
+  const mapAddProduct = () => {
+    return <AddInventory msg={(val)=>setmsg(val)} />;
+  };
+
   const mapAtt = () => {
     //console.log(obj)
     window.scroll({
@@ -51,7 +58,7 @@ export default function Layer10A() {
       return (
         <>
           <div className="col-12">
-            <h3>{key + " : " + att[key]}</h3>
+            <h4>{key + " : " + att[key]}</h4>
           </div>
           <br />
         </>
@@ -181,7 +188,6 @@ export default function Layer10A() {
               height: "100vh",
             }}
           >
-            <div className="px-5 d-flex justify-content-end"></div>
             <div
               className="justify-content-center p-5"
               style={{
@@ -196,14 +202,16 @@ export default function Layer10A() {
             >
               <h2 className="text-center mt-2 mb-4">ATTRIBUTES</h2>
               {mapAtt()}
-              <button
-                type="button"
-                className="btn btn-danger m"
-                style={{ border: "1px solid black", borderRadius: "10px" }}
-                onClick={() => setshowAtt(false)}
-              >
-                Close
-              </button>
+              <div className="text-center">
+                <button
+                  type="button"
+                  className="btn-lg btn-danger"
+                  style={{ border: "1px solid black", borderRadius: "10px" }}
+                  onClick={() => setshowAtt(false)}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </>
@@ -255,7 +263,7 @@ export default function Layer10A() {
         <div
           id="pricing-area"
           className="pricing-area custom-border"
-          style={{ backgroundColor: "#f3fbfe"}}
+          style={{ backgroundColor: "#f3fbfe" }}
         >
           <div className="container pt-100">
             <div className="row">
@@ -287,8 +295,8 @@ export default function Layer10A() {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-3 add-prodcut">
-                      <button className="btn btn-custom">
-                        <i className="fa fa-plus"></i>&nbsp;&nbsp;Add Products
+                      <button className="btn btn-custom" onClick={()=>setaddInv(true)}>
+                        Add Products
                       </button>
                     </div>
                   </div>
@@ -371,8 +379,11 @@ export default function Layer10A() {
                     )}
                   </div>
 
-                  <div className="col-12" style={{width:'100%', overflowY: "scroll",}} >
-                    <div className="horizontal-scrollable">
+                  <div className="col-12">
+                    {msg && <p1 className="text-danger">{msg}</p1>}
+                    <div
+                      style={{ width: "100%", overflowX: "scroll" }}
+                    >
                       <table className="table table-borderless custom-tbl text-left mb-4">
                         <thead>
                           <tr>
@@ -407,7 +418,10 @@ export default function Layer10A() {
                             <th scope="col">Assest ID</th>
                           </tr>
                         </thead>
-                        <tbody>{mapProduct()}</tbody>
+                        <tbody>
+                          {addInv && mapAddProduct()}
+                          {mapProduct()}
+                        </tbody>
                       </table>
                     </div>
                     <Link href="#">
