@@ -5,24 +5,31 @@ import Link from "next/link";
 import axios from "axios";
 import InventoryMap from "../custom/inventoryMap";
 import AddInventory from "../custom/addInventory";
+import { useRouter } from "next/router";
 
 let products = [];
 let filteredProductList = [];
 
 export default function Layer10A() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession()
   const [showAtt, setshowAtt] = useState(false);
   const [addInv, setaddInv] = useState(false);
   const [att, setAtt] = useState("");
   const [msg, setmsg] = useState("")
-  console.log(session);
+  console.log(session && session.authToken);
 
-  //console.log(session.user.email);
+  console.log(session);
   //const accessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3QwMTRAdGVzdC5jb20iLCJpYXQiOjE2NDUxMTI0NTJ9.APlfsocgH0Kl8uQs5TDPtnhNBZidyl-KqgvrgV2tslg'
   const [data, setData] = useState([]);
+  const router=useRouter()
+
   useEffect(() => {
     fetchData();
-  }, [msg]);
+  }, [session]);
+
+  if(msg != ""){
+    setTimeout(()=>setmsg(""),5000)
+  }
 
   const mapProduct = () => {
     if (data.length > 0) {
@@ -43,7 +50,11 @@ export default function Layer10A() {
   };
 
   const mapAddProduct = () => {
-    return <AddInventory msg={(val)=>{setmsg(val);}} setInv={(val)=>{setData(val)}} />;
+    if(session){
+      return <AddInventory msg={(val)=>{setmsg(val);}} setInv={(val)=>{setData(val)}} />;
+    }
+    return null
+    
   };
 
   const mapAtt = () => {
@@ -67,11 +78,11 @@ export default function Layer10A() {
   };
 
   const fetchData = async () => {
-    await axios
+    session && await axios
       .get("http://localhost:9000/.netlify/functions/inventory", {
         headers: {
           Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3Nzc3RAdHQuY29tIiwiaWF0IjoxNjUwMDQ5OTY1fQ.4mWVMPyA0PSQQoeGNf0rFfPcFoaHFBIj3KE7C-fxBOY",
+            session.authToken,
         },
       })
       .then(
@@ -295,7 +306,7 @@ export default function Layer10A() {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-3 add-prodcut">
-                      <button className="btn btn-custom" onClick={()=>setaddInv(true)}>
+                      <button className="btn btn-custom" onClick={session?()=>{setaddInv(true)}:signIn}>
                         Add Products
                       </button>
                     </div>
@@ -386,7 +397,7 @@ export default function Layer10A() {
                     >
                       <table className="table table-borderless custom-tbl text-left mb-4">
                         <thead>
-                          <tr>
+                        <tr>
                             <th scope="col">Category</th>
                             <th scope="col">Stock No</th>
                             <th scope="col">Style Number</th>
@@ -410,11 +421,36 @@ export default function Layer10A() {
                             <th scope="col">Product Certificate Picture</th>
                             <th scope="col">Certificate Number</th>
                             <th scope="col">Laboratory Certification</th>
-                            <th scope="col">Attributes</th>
+                            <th scope="col">Style</th>
+                            <th scope="col">Style Name</th>
+                            <th scope="col">Stone Class</th>
+                            <th scope="col">Gemstone Type</th>
+                            <th scope="col">Stone Cut</th>
+                            <th scope="col">Stone Shape</th>
+                            <th scope="col">Stone Color</th>
+                            <th scope="col">Stone Clarity</th>
+                            <th scope="col">Center Stone CT</th>
+                            <th scope="col">CTW</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Metal Type</th>
+                            <th scope="col">Metal Color</th>
+                            <th scope="col">Gol Karat</th>
+                            <th scope="col">Metal Finish</th>
+                            <th scope="col">Ring Size</th>
+                            <th scope="col">Ring Width</th>
+                            <th scope="col">Chain Type</th>
+                            <th scope="col">Chain Length</th>
+                            <th scope="col">Chain Width</th>
+                            <th scope="col">Hoop Diameter</th>
+                            <th scope="col">Center Size</th>
+                            <th scope="col">Pendant Height</th>
+                            <th scope="col">Pendant Width</th>
+                            <th scope="col">Total Carot Weight</th>
+                            <th scope="col">Product Weight</th>
                             <th scope="col">Shipping Length</th>
                             <th scope="col">Shipping Width</th>
                             <th scope="col">Shipping Height</th>
-                            <th scope="col">Jwewelary Type</th>
+                            <th scope="col">Jewelary Type</th>
                             <th scope="col">Assest ID</th>
                           </tr>
                         </thead>

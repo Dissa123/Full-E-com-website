@@ -1,7 +1,10 @@
 import React, { useCallback, useState, useEffect } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const AddInventory = (props) => {
+  const { data: session } = useSession()
+  console.log(session)
   const [inventory, setinventory] = useState({
     categoryAbr: "",
     stockno: "",
@@ -26,7 +29,33 @@ const AddInventory = (props) => {
     prodCertificatePicture: "",
     certificateNumber: "",
     labCertification: "",
-    attributes: "",
+    attributes: {
+      style:"",
+      styleName:"",
+      stoneClass: "",
+      gemstoneType: "",
+      stoneCut: "",
+      stoneShape: "",
+      stoneColor: "",
+      stoneClarity: "",
+      centerStoneCT: "",
+      ctw: "",
+      gender: "",
+      metalType: "",
+      metalColor: "",
+      goldKarat: "",
+      metalFinish: "",
+      metalColorAvailability: "",
+      ringSize: "",
+      ringWidth: "",
+      chainType: "",
+      chainLength: "",
+      chainWidth: "",
+      hoopDiameter: "",
+      pendantHeight: "",
+      pendantWidth: "",
+      prodWeight: "",
+    },
     shippingLength: "",
     shippingWidth: "",
     shippingHeight: "",
@@ -41,7 +70,7 @@ const AddInventory = (props) => {
         {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3Nzc3RAdHQuY29tIiwiaWF0IjoxNjUwMDQ5OTY1fQ.4mWVMPyA0PSQQoeGNf0rFfPcFoaHFBIj3KE7C-fxBOY",
+            session.authToken,
           },
         }
       )
@@ -57,16 +86,14 @@ const AddInventory = (props) => {
               .get("http://localhost:9000/.netlify/functions/inventory", {
                 headers: {
                   Authorization:
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3Nzc3RAdHQuY29tIiwiaWF0IjoxNjUwMDQ5OTY1fQ.4mWVMPyA0PSQQoeGNf0rFfPcFoaHFBIj3KE7C-fxBOY",
+                  session.authToken,
                 },
               })
               .then(
                 (res) => {
                   //console.log(inven);
-                  props.msg(
-                    "You have successfully uploaded your inventory"
-                  );
-                  props.setInv(res.data)
+                  props.msg("You have successfully uploaded your inventory");
+                  props.setInv(res.data);
                   setinventory({
                     categoryAbr: "",
                     stockno: "",
@@ -91,7 +118,31 @@ const AddInventory = (props) => {
                     prodCertificatePicture: "",
                     certificateNumber: "",
                     labCertification: "",
-                    attributes: "",
+                    attributes: {
+                      stoneClass: "",
+                      gemstoneType: "",
+                      stoneCut: "",
+                      stoneShape: "",
+                      stoneColor: "",
+                      stoneClarity: "",
+                      centerStoneCT: "",
+                      ctw: "",
+                      gender: "",
+                      metalType: "",
+                      metalColor: "",
+                      goldKarat: "",
+                      metalFinish: "",
+                      metalColorAvailability: "",
+                      ringSize: "",
+                      ringWidth: "",
+                      chainType: "",
+                      chainLength: "",
+                      chainWidth: "",
+                      hoopDiameter: "",
+                      pendantHeight: "",
+                      pendantWidth: "",
+                      prodWeight: "",
+                    },
                     shippingLength: "",
                     shippingWidth: "",
                     shippingHeight: "",
@@ -103,8 +154,6 @@ const AddInventory = (props) => {
                   console.log(err);
                 }
               );
-
-           
           } else {
             props.msg(res.data.message);
           }
@@ -118,7 +167,7 @@ const AddInventory = (props) => {
     return (
       <tr className="tbl-bg-white">
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -135,7 +184,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -152,7 +201,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -169,7 +218,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -186,7 +235,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -203,7 +252,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -220,7 +269,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -237,7 +286,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -254,7 +303,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -271,7 +320,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -288,7 +337,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -305,7 +354,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -322,7 +371,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -339,7 +388,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -356,7 +405,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -373,7 +422,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -390,7 +439,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -407,7 +456,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -424,7 +473,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -441,7 +490,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -458,7 +507,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -475,7 +524,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -492,7 +541,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -509,19 +558,457 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {
-            <button
-              style={{ width: "100px" }}
-              className="btn btn-primary"
-              onClick={() => {}}
-            >
-              add
-            </button>
-          }
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.style}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,style: e.target.value,}
+              }));
+            }}
+          />
         </td>
 
         <td>
-          {" "}
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.styleName}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,styleName: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.stoneClass}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,stoneClass: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.gemstoneType}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,gemstoneType: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.stoneCut}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,stoneCut: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.stoneShape}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,stoneShape: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.stoneColor}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,stoneColor: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.stoneClarity}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,stoneClarity: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.centerStoneCT}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,centerStoneCT: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.ctw}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,ctw: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.gender}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,gender: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.metalType}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,metalType: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.metalColor}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,metalColor: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.goldKarat}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,goldKarat: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.metalFinish}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,metalFinish: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.ringSize}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,ringSize: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.ringWidth}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,ringWidth: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.chainType}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,chainType: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.chainLength}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,chainLength: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.chainWidth}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,chainWidth: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.hoopDiameter}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,hoopDiameter: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.centerSize}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,centerSize: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.pendantHeight}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,pendantHeight: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.pendantWidth}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,pendantWidth: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+        
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.totalCaratWeight}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,totalCaratWeight: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+
+        <td>
+          
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            required
+            value={inventory.attributes.prodWeight}
+            onChange={(e) => {
+              setinventory((inventory) => ({
+                ...inventory,
+                attributes:{...inventory.attributes,prodWeight: e.target.value,}
+              }));
+            }}
+          />
+        </td>
+ 
+        <td>
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -538,7 +1025,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -555,7 +1042,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -572,7 +1059,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
@@ -589,7 +1076,7 @@ const AddInventory = (props) => {
         </td>
 
         <td>
-          {" "}
+          
           <input
             className="form-control"
             style={{ width: "100px" }}
