@@ -5,30 +5,32 @@ import Link from "next/link";
 import axios from "axios";
 import InventoryMap from "../custom/inventoryMap";
 import AddInventory from "../custom/addInventory";
+import FileUploader from "../custom/csvUpload/FileUploader";
 import { useRouter } from "next/router";
 
 let products = [];
 let filteredProductList = [];
 
 export default function Layer10A() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   const [showAtt, setshowAtt] = useState(false);
   const [addInv, setaddInv] = useState(false);
   const [att, setAtt] = useState("");
-  const [msg, setmsg] = useState("")
+  const [msg, setmsg] = useState("");
+  const [Disptype, setDispType] = useState("ADD PRODUCT");
   console.log(session && session.authToken);
 
   console.log(session);
   //const accessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3QwMTRAdGVzdC5jb20iLCJpYXQiOjE2NDUxMTI0NTJ9.APlfsocgH0Kl8uQs5TDPtnhNBZidyl-KqgvrgV2tslg'
   const [data, setData] = useState([]);
-  const router=useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     fetchData();
   }, [session]);
 
-  if(msg != ""){
-    setTimeout(()=>setmsg(""),5000)
+  if (msg != "") {
+    setTimeout(() => setmsg(""), 5000);
   }
 
   const mapProduct = () => {
@@ -50,11 +52,19 @@ export default function Layer10A() {
   };
 
   const mapAddProduct = () => {
-    if(session){
-      return <AddInventory msg={(val)=>{setmsg(val);}} setInv={(val)=>{setData(val)}} />;
+    if (session) {
+      return (
+        <AddInventory
+          msg={(val) => {
+            setmsg(val);
+          }}
+          setInv={(val) => {
+            setData(val);
+          }}
+        />
+      );
     }
-    return null
-    
+    return null;
   };
 
   const mapAtt = () => {
@@ -78,22 +88,22 @@ export default function Layer10A() {
   };
 
   const fetchData = async () => {
-    session && await axios
-      .get("http://localhost:9000/.netlify/functions/inventory", {
-        headers: {
-          Authorization:
-            session.authToken,
-        },
-      })
-      .then(
-        (inven) => {
-          //console.log(inven);
-          setData(inven.data);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    session &&
+      (await axios
+        .get("http://localhost:9000/.netlify/functions/inventory", {
+          headers: {
+            Authorization: session.authToken,
+          },
+        })
+        .then(
+          (inven) => {
+            //console.log(inven);
+            setData(inven.data);
+          },
+          (err) => {
+            console.log(err);
+          }
+        ));
   };
 
   products = [
@@ -187,7 +197,7 @@ export default function Layer10A() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      {showAtt && (
+      {Disptype == "upload" && (
         <>
           <div
             className="py-5 px-4"
@@ -206,25 +216,14 @@ export default function Layer10A() {
                 margin: "auto",
                 background: "white",
                 height: "100%",
-                border: "3px solid black",
+                //border: "3px solid black",
                 borderRadius: "10px",
                 overflowY: "scroll",
               }}
             >
-              <h2 className="text-center mt-2 mb-4">ATTRIBUTES</h2>
-              {mapAtt()}
-              <div className="text-center">
-                <button
-                  type="button"
-                  className="btn-lg btn-danger"
-                  style={{ border: "1px solid black", borderRadius: "10px" }}
-                  onClick={() => setshowAtt(false)}
-                >
-                  Close
-                </button>
-              </div>
+              <FileUploader setInv={(val)=>setData(val)} msg={(val)=>setmsg(val)} dispType={(val=>setDispType(val))}/>
             </div>
-          </div>
+            </div>
         </>
       )}
       {/* Add your site or application content here */}
@@ -306,9 +305,33 @@ export default function Layer10A() {
                     </div>
                     <div className="col-md-3"></div>
                     <div className="col-md-3 add-prodcut">
-                      <button className="btn btn-custom" onClick={session?()=>{setaddInv(true)}:signIn}>
-                        Add Products
+                      <button
+                        className="btn btn-custom" /* onClick={session?()=>{setaddInv(true)}:signIn} */
+                      >
+                        <select
+                          className="btn btn-custom"
+                          value={Disptype}
+                          defaultValue="ADD PRODUCTS"
+                          onChange={(e) => {
+                            if (e.target.value == "manually") {
+                              {
+                                session ? setaddInv(true) : signIn();
+                              }
+                            }
+                            setDispType(e.target.value);
+                          }}
+                        >
+                          <option value="" selected>
+                            ADD PRODUCT
+                          </option>
+                          <option value="manually">
+                            MANUALLY ADD A PRODUCT
+                          </option>
+                          <option value="import">IMPORT FROM YOUR POS</option>
+                          <option value="upload">UPLOAD A FILE</option>
+                        </select>
                       </button>
+                      <div></div>
                     </div>
                   </div>
 
@@ -392,12 +415,10 @@ export default function Layer10A() {
 
                   <div className="col-12">
                     {msg && <p1 className="text-danger">{msg}</p1>}
-                    <div
-                      style={{ width: "100%", overflowX: "scroll" }}
-                    >
+                    <div style={{ width: "100%", overflowX: "scroll" }}>
                       <table className="table table-borderless custom-tbl text-left mb-4">
                         <thead>
-                        <tr>
+                          <tr>
                             <th scope="col">Category</th>
                             <th scope="col">Stock No</th>
                             <th scope="col">Style Number</th>
