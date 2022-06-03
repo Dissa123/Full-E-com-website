@@ -2736,3 +2736,10 @@ button.btn-custom:hover {
     background: #f4fbff;
     border-radius: 10px;
 }
+
+/* 
+ */
+
+ .gBtn{
+     padding: 40px;
+ }
