@@ -2741,5 +2741,7 @@ button.btn-custom:hover {
  */
 
  .gBtn{
-     padding: 40px;
+     border:0;
+     background-color: #f4fbff;
  }
+
