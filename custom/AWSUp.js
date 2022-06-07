@@ -1,5 +1,5 @@
 import React from "react";
-import Fetch from 'react-fetch'
+import Fetch from "react-fetch";
 import S3FileUpload from "react-s3";
 
 // const S3FileUpload = new S3(config);
@@ -33,5 +33,5 @@ class MyDocument extends Component {
     );
   }
 }
-
+// export
 export default MyDocument;
