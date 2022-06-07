@@ -6,6 +6,7 @@ import '../styles/bootstrap.min.css'
 // import '../styles/fontawesome.min.css'
 import '../styles/font-awesome.min.css'
 import '../styles/style.css'
+// import S3FileUpload from "react-s3";
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
