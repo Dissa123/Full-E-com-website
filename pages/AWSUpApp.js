@@ -1,9 +1,11 @@
 import React from "react";
-import AWSUp from "../custom/AWSUp";
+// import AWSUp from "../custom/AWSUp";
+import AWSImageUpload from "../custom/AWSImageUpload";
 function AWSUpApp() {
   return (
     <div>
-      <AWSUp />
+      {/* <AWSUp /> */}
+      <AWSImageUpload />
     </div>
   );
 }

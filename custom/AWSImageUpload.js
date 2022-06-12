@@ -1,24 +1,29 @@
-import React from "react";
-import Progress from "./Progress";
-import { Fragment } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faImage } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+// import logo from './logo.svg';
+// import "./App.css";
 import { Upload } from "@aws-sdk/lib-storage";
 import { S3Client, S3 } from "@aws-sdk/client-s3";
-import uploadedFile from "@aws-sdk/lib-storage";
 
-function AWSImageUpload() {
-  const upload = (file) => {
-    var file = file.target.files[0];
+function App() {
+  const [file, setFile] = useState();
+  function fileChange(e) {
+    var file = e.target.files[0];
+    // console.log(e.target.files[0])
 
-    const target = { Bucket: "imageUpload", Key: file.name, Body: file };
-    const creds = { accessKeyId: "bDKhdhHlYycm/H4UPsgkuFA+REBsBCKpwn01e3qG",accessKeyId:"AKIA3TFHQ6HB6O2LSR6U" };
+    const target = {
+      Bucket: "aws-s3-upload-ash-pic",
+      Key: file.name,
+      Body: file,
+    };
+    const creds = {
+      accessKeyId: "AKIA3TFHQ6HBRO3S2ZAE",
+      secretAccessKey: "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",
+    };
     try {
       const parallelUploads3 = new Upload({
         client: new S3Client({ region: "us-east-1", credentials: creds }),
-        leavePartsOnError: false,
+        leavePartsOnError: false, // optional manually handle dropped parts
         params: target,
-        // optional manually handle dropped parts
       });
 
       parallelUploads3.on("httpUploadProgress", (progress) => {
@@ -29,12 +34,12 @@ function AWSImageUpload() {
     } catch (e) {
       console.log(e);
     }
-  };
+  }
   return (
     <div>
-      <input type="file" onChange={upload} />
+      <input type="file" id="file" onChange={fileChange} />
     </div>
   );
 }
 
-export default AWSImageUpload;
+export default App;
