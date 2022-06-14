@@ -113,10 +113,7 @@ function ImageUploader() {
           <div className="col-md-12 mt-5">
             <form onSubmit={onSubmit}>
               {/* File uploader */}
-              <div
-                className="iconAndFileType"
-                style={{ border: "1px solid #000", borderStyle: "dashed" }}
-              >
+              <div className="iconAndFileType" style={{ border: "1px solid #000", borderStyle: "dashed" }} >
                 <div
                   className="custom-file mb-4 text-center"
                   style={{ backgoundColor: "#ffff" }}
