@@ -12,7 +12,7 @@ function GApp() {
       clientId: "751689268785-1u7os1o3t30rr74oioka7dtjqdot2g38.apps.googleusercontent.com",
       developerKey: "AIzaSyAT8V2rywn2mUy_5FE_spnn7HnYy_j8EN4",
       viewId: "DOCS",
-      token:"ya29.a0ARrdaM8k1CNkFZJoBidHENwqz_92SJu01voDsGeM0k7JYPjDYF9j_-SWVWkKpi1GAox8S22NiOyieO9bbz66DJkiTd8Bys3HMCclWimMJzZms_XlKOYdFmTBCQ8IDeecHNoOdwooCbO_WbP59HsaVQVuuC9c",
+      token:"ya29.a0ARrdaM_U7NdbKkPZfGPO6-NyUJCO_R0bH99xt1w0yEl4v8IRzA-iWiyxSht0NJCBJYNafnzaCLD74wtxtrDOve2PgT6BFML3MgvQ9trEdYuFdbHmhkByHuVuNnVlb-I73j_fPKjfhIn20Pmn44f4YA9pltlI",
       // token: token, // pass oauth token in case you already have one
       showUploadView: true,
       showUploadFolders: true,
